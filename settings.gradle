@@ -1,0 +1,2 @@
+rootProject.name = 'moviedb-service'
+include 'moviedb-api', 'moviedb-impl', 'moviedb-client'
