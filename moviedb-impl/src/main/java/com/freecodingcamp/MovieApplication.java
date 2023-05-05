@@ -1,4 +1,4 @@
-package com.freecodingcamp.movie;
+package com.freecodingcamp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -16,6 +16,5 @@ dependencies{
 
 	implementation 'org.springframework.boot:spring-boot-starter-web:3.0.6'
 	implementation 'org.springframework.boot:spring-boot-starter-jetty:3.0.6'
-	// implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:3.0.6'
-
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:3.0.6'
 }
