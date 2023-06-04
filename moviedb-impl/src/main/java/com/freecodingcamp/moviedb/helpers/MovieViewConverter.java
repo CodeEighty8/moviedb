@@ -11,9 +11,14 @@ import java.util.List;
 
 @Component
 public class MovieViewConverter {
+    private ObjectMapper objectMapper = new ObjectMapper()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
     public List<MovieView> convert(List<Movie> movies){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        return mapper.convertValue(movies, new TypeReference<List<MovieView>>() {});
+        return objectMapper.convertValue(movies, new TypeReference<List<MovieView>>() {});
+    }
+
+    public MovieView convert(Movie movie){
+        return objectMapper.convertValue(movie, new TypeReference<MovieView>() {});
     }
 }

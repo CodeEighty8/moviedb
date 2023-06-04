@@ -5,11 +5,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "reviews")
-public class Reviews {
+public class Review {
     
     @Id
     private ObjectId id;
     private String body;
+
+    public Review(String reviewBody){
+        this.body = reviewBody;
+    }
 
     public ObjectId getId() {
         return id;
