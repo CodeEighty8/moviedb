@@ -9,10 +9,10 @@ public class Review {
     
     @Id
     private ObjectId id;
-    private String body;
+    private String reviewBody;
 
     public Review(String reviewBody){
-        this.body = reviewBody;
+        this.reviewBody = reviewBody;
     }
 
     public ObjectId getId() {
@@ -21,10 +21,10 @@ public class Review {
     public void setId(ObjectId id) {
         this.id = id;
     }
-    public String getBody() {
-        return body;
+    public String getReviewBody() {
+        return reviewBody;
     }
-    public void setBody(String body) {
-        this.body = body;
+    public void setReviewBody(String reviewBody) {
+        this.reviewBody = reviewBody;
     }
 }
