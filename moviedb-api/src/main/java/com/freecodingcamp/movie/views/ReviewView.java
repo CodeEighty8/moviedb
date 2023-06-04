@@ -1,7 +1,5 @@
 package com.freecodingcamp.movie.views;
 
-import java.util.List;
-
 public class ReviewView {
 
     private String imdbId;

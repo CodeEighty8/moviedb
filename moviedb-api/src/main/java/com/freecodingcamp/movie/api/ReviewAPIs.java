@@ -1,7 +1,6 @@
 package com.freecodingcamp.movie.api;
 
 import com.freecodingcamp.movie.views.ReviewView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
