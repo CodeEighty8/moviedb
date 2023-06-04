@@ -1,12 +1,14 @@
 package com.freecodingcamp.moviedb.dao;
 
-import java.sql.Date;
-import java.util.List;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
+
+import java.sql.Date;
+import java.util.List;
 
 @Document(collection = "movies")
 public class Movie {
@@ -34,58 +36,86 @@ public class Movie {
     public ObjectId getId() {
         return id;
     }
+
     public void setId(ObjectId id) {
         this.id = id;
     }
+
     public String getImdbId() {
         return imdbId;
     }
+
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public Date getReleaseDate() {
         return releaseDate;
     }
+
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
+
     public String getTrailerLink() {
         return trailerLink;
     }
+
     public void setTrailerLink(String trailerLink) {
         this.trailerLink = trailerLink;
     }
+
     public List<String> getGenres() {
         return genres;
     }
+
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
+
     public String getPoster() {
         return poster;
     }
+
     public void setPoster(String poster) {
         this.poster = poster;
     }
+
     public List<String> getBackdrops() {
         return backdrops;
     }
+
     public void setBackdrops(List<String> backdrops) {
         this.backdrops = backdrops;
     }
+
     public List<Review> getReviewIDs() {
         return reviewIDs;
     }
+
     public void setReviewIDs(List<Review> reviewIDs) {
         this.reviewIDs = reviewIDs;
     }
+
     public void appendReviewIDs(List<Review> reviewIDs){
         this.reviewIDs.addAll(reviewIDs);
+    }
+
+    @Override
+    public String toString(){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

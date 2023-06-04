@@ -29,9 +29,9 @@ public class ReviewService {
         Optional<Movie> movie = movieRepository.findByImdbId(imdbId).stream().findFirst();
         if(movie.isPresent()){
             Movie saveMovie = movie.get();
-
+            
             Review review = reviewRepository.insert(new Review(reviewView.getReviewBody()));
-            saveMovie.setReviewIDs(Collections.singletonList(review));
+            saveMovie.appendReviewIDs(Collections.singletonList(review));
             movieRepository.save(saveMovie);
         } else {
             throw new IMDBIdNotFoundException("Unknown IMDB ID: " + imdbId);
