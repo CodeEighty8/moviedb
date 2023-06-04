@@ -2,13 +2,13 @@ package com.freecodingcamp.movie.views;
 
 public class ReviewView {
 
-    private String reviewBody;
+    private String review;
 
-    public String getReviewBody() {
-        return reviewBody;
+    public String getReview() {
+        return review;
     }
 
-    public void setReviewBody(String reviewBody) {
-        this.reviewBody = reviewBody;
+    public void setReview(String review) {
+        this.review = review;
     }
 }

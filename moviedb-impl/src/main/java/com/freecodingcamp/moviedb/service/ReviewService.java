@@ -30,8 +30,8 @@ public class ReviewService {
         if(movie.isPresent()){
             Movie saveMovie = movie.get();
             
-            Review review = reviewRepository.insert(new Review(reviewView.getReviewBody()));
-            saveMovie.appendReviewIDs(Collections.singletonList(review));
+            Review review = reviewRepository.insert(new Review(reviewView.getReview()));
+            saveMovie.appendReviewIds(Collections.singletonList(review));
             movieRepository.save(saveMovie);
         } else {
             throw new IMDBIdNotFoundException("Unknown IMDB ID: " + imdbId);

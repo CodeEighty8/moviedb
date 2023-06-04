@@ -31,7 +31,7 @@ public class Movie {
     private List<String> backdrops;
     
     @DocumentReference
-    private List<Review> reviewIDs;
+    private List<Review> reviewIds;
 
     public ObjectId getId() {
         return id;
@@ -97,16 +97,16 @@ public class Movie {
         this.backdrops = backdrops;
     }
 
-    public List<Review> getReviewIDs() {
-        return reviewIDs;
+    public List<Review> getReviewIds() {
+        return reviewIds;
     }
 
-    public void setReviewIDs(List<Review> reviewIDs) {
-        this.reviewIDs = reviewIDs;
+    public void setReviewIds(List<Review> reviewIds) {
+        this.reviewIds = reviewIds;
     }
 
-    public void appendReviewIDs(List<Review> reviewIDs){
-        this.reviewIDs.addAll(reviewIDs);
+    public void appendReviewIds(List<Review> reviewIds){
+        this.reviewIds.addAll(reviewIds);
     }
 
     @Override
