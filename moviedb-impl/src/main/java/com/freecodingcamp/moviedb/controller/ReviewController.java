@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.InvalidPropertiesFormatException;
+
 @RestController
 @RequestMapping("/api/v1/reviews")
 public class ReviewController implements ReviewAPIs {
@@ -21,7 +23,7 @@ public class ReviewController implements ReviewAPIs {
     public ResponseEntity addReview(ReviewView reviewView, String imdbId) {
         try {
             reviewService.addReview(reviewView, imdbId);
-        } catch (IMDBIdNotFoundException e){
+        } catch (IMDBIdNotFoundException | InvalidPropertiesFormatException e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(HttpStatus.CREATED);

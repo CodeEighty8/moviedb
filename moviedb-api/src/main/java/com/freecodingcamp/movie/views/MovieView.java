@@ -11,7 +11,7 @@ public class MovieView {
     private List<String> genres;
     private String poster;
     private List<String> backdrops;
-    private List<ReviewView> reviews;
+    private List<String> reviews;
 
     public String getImdbId() {
         return imdbId;
@@ -69,11 +69,11 @@ public class MovieView {
         this.backdrops = backdrops;
     }
 
-    public List<ReviewView> getReviews() {
+    public List<String> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<ReviewView> reviews) {
+    public void setReviews(List<String> reviews) {
         this.reviews = reviews;
     }
 }
