@@ -24,9 +24,9 @@ public class ReviewService {
 
     private MongoTemplate mongoTemplate;
 
-    public void addReview(ReviewView reviewView) throws IMDBIdNotFoundException{
+    public void addReview(ReviewView reviewView, String imdbId) throws IMDBIdNotFoundException{
 
-        Optional<Movie> movie = movieRepository.findByImdbId(reviewView.getImdbId()).stream().findFirst();
+        Optional<Movie> movie = movieRepository.findByImdbId(imdbId).stream().findFirst();
         if(movie.isPresent()){
             Movie saveMovie = movie.get();
 
@@ -34,7 +34,7 @@ public class ReviewService {
             saveMovie.setReviewIDs(Collections.singletonList(review));
             movieRepository.save(saveMovie);
         } else {
-            throw new IMDBIdNotFoundException("Unknown IMDB ID: " + reviewView.getImdbId());
+            throw new IMDBIdNotFoundException("Unknown IMDB ID: " + imdbId);
         }
     }
 

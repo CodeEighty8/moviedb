@@ -18,12 +18,12 @@ public class ReviewController implements ReviewAPIs {
     ReviewService reviewService;
 
     @Override
-    public ResponseEntity addReview(ReviewView reviewView) {
+    public ResponseEntity addReview(ReviewView reviewView, String imdbId) {
         try {
-            reviewService.addReview(reviewView);
+            reviewService.addReview(reviewView, imdbId);
         } catch (IMDBIdNotFoundException e){
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("saved review", HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
