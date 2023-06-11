@@ -33,4 +33,8 @@ public class MovieViewConverter {
         movieView.setReviews(reviews);
         return movieView;
     }
+
+    public Movie convert(MovieView movieView){
+        return objectMapper.convertValue(movieView, new TypeReference<Movie>() {});
+    }
 }

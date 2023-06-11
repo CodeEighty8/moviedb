@@ -1,9 +1,14 @@
 package com.freecodingcamp.moviedb.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.freecodingcamp.movie.views.MovieView;
 import com.freecodingcamp.moviedb.dao.Movie;
 import com.freecodingcamp.moviedb.dao.MovieRepository;
+import com.freecodingcamp.moviedb.exceptions.IMDBIdConflictException;
+import com.freecodingcamp.moviedb.exceptions.IMDBIdNotFoundException;
+import com.freecodingcamp.moviedb.exceptions.MovieDataIncompleteException;
 import com.freecodingcamp.moviedb.exceptions.MovieNotFoundException;
+import com.freecodingcamp.moviedb.helpers.MovieDataValidator;
 import com.freecodingcamp.moviedb.helpers.MovieViewConverter;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,9 @@ public class MovieService {
     @Autowired
     private MovieViewConverter movieViewConverter;
 
+    @Autowired
+    private MovieDataValidator movieDataValidator;
+
     public List<MovieView> getAllMovies(){
         return movieViewConverter.convert(movieRepository.findAll());
     }
@@ -37,12 +45,39 @@ public class MovieService {
         throw new MovieNotFoundException("Movie not found for id: " + id);
     }
 
-    public void saveMovie(Movie movie){
-        try {
-            movieRepository.save(movie);
-        } catch (IllegalArgumentException e){
-            System.out.println("Unable to save move. " + e.getMessage());
-            throw new RuntimeException(e);
+    public String saveMovie(MovieView movieView)
+            throws MovieDataIncompleteException, IMDBIdConflictException, IllegalArgumentException, JsonProcessingException {
+        movieDataValidator.validate(movieView);
+
+        List<Movie> movies = movieRepository.findByImdbId(movieView.getImdbId());
+        if(!movies.isEmpty()) {
+            throw new IMDBIdConflictException("IMDB ID already present " + movieView.getImdbId());
         }
+
+        Movie movie = movieViewConverter.convert(movieView);
+        return movieRepository.save(movie).getImdbId();
+    }
+
+    public void updateMovie(MovieView movieView) throws IMDBIdNotFoundException, IMDBIdConflictException, IllegalArgumentException {
+        movieDataValidator.validate(movieView);
+
+        List<Movie> movies = movieRepository.findByImdbId(movieView.getImdbId());
+        if(movies.isEmpty()){
+            throw new IMDBIdNotFoundException("No movie found for IMDB ID " + movieView.getImdbId());
+        }
+
+        if(movies.size() > 1){
+            throw  new IMDBIdConflictException("More than one movie found for IMDB ID " + movieView.getImdbId());
+        }
+
+        Movie movie = movies.get(0);
+
+        movie.setReleaseDate(movieView.getReleaseDate());
+        movie.setTrailerLink(movieView.getTrailerLink());
+        movie.setGenres(movieView.getGenres());
+        movie.setPoster(movieView.getPoster());
+        movie.setBackdrops(movieView.getBackdrops());
+
+        movieRepository.save(movie);
     }
 }

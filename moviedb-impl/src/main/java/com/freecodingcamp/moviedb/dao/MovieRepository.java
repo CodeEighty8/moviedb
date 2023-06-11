@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MovieRepository extends MongoRepository<Movie, ObjectId> {
     public List<Movie> findByImdbId(String imdbId);
+    public boolean existsByImdbId(String imdbId);
 }
